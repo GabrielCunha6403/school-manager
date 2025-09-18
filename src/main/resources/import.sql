@@ -1,6 +1,49 @@
--- This file allow to write SQL commands that will be emitted in test and dev.
--- The commands are commented as their support depends of the database
--- insert into myentity (id, field) values(1, 'field-1');
--- insert into myentity (id, field) values(2, 'field-2');
--- insert into myentity (id, field) values(3, 'field-3');
--- alter sequence myentity_seq restart with 4;
+-- TP_USERS
+create table TP_USERS (
+	CD_TP_USER SERIAL PRIMARY KEY,
+	DS_TP_USER VARCHAR(20)
+);
+insert into tp_users (ds_tp_user)
+values('ADMINISTRADOR');
+insert into tp_users (ds_tp_user)
+values('COORDENADOR');
+insert into tp_users (ds_tp_user)
+values('PROFESSOR');
+insert into tp_users (ds_tp_user)
+values('ALUNO');
+
+-- USERS
+CREATE TABLE users (
+    cd_user SERIAL PRIMARY KEY,
+    nm_user VARCHAR(50) NOT NULL,
+    tp_user INT NOT NULL,
+    cpf VARCHAR(14) NOT NULL,
+    FOREIGN KEY (tp_user) REFERENCES tp_users(cd_tp_user)
+);
+
+--DISCIPLINAS
+CREATE TABLE DISCIPLINAS (
+    CD_DISCIPLINA SERIAL PRIMARY KEY,
+    NM_DISCIPLINA VARCHAR(50) NOT NULL,
+    SEMESTRE INT NOT NULL,
+    NR_CREDITOS INT NOT NULL
+);
+
+--CURSOS
+CREATE TABLE CURSOS (
+    CD_CURSO SERIAL PRIMARY KEY,
+    NM_CURSO VARCHAR(50) NOT NULL,
+    CD_COORDENADOR INT NOT NULL,
+    NR_CARGA_HORARIA INT NOT null,
+    FOREIGN KEY (CD_COORDENADOR) REFERENCES USERS(CD_USER)
+);
+
+--SEMESTRE
+CREATE TABLE SEMESTRES (
+    CD_CURSO INT NOT NULL,
+    SEMESTRE INT NOT NULL,
+    CD_DISCIPLINA INT NOT NULL,
+    FOREIGN KEY (CD_CURSO) REFERENCES CURSOS(CD_CURSO),
+    FOREIGN KEY (CD_DISCIPLINA) REFERENCES DISCIPLINAS(CD_DISCIPLINA),
+    PRIMARY KEY (CD_CURSO, SEMESTRE, CD_DISCIPLINA)
+);
