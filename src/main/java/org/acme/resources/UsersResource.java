@@ -1,21 +1,41 @@
 package org.acme.resources;
 
+import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
-import org.acme.dto.TpUsersDto;
-import org.acme.entities.TpUsers;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.Response;
+import org.acme.dto.UserDto;
+import org.acme.services.UserService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Path("/users")
 public class UsersResource {
 
+    @Inject
+    private UserService userService;
+
     @GET
-    public List<TpUsersDto> getTpUsers() {
-        List<TpUsers> usuarios = TpUsers.listAll(); // Panache
-        return usuarios.stream()
-                .map(TpUsersDto::new)
-                .collect(Collectors.toList());
+    public Response listUsers() {
+        return Response.ok(userService.listUsers()).build();
+    }
+
+    @GET
+    @Path("find")
+    public Response getUser(@QueryParam("cdUser") Long cdUser) {
+        return Response.ok(userService.getUser(cdUser)).build();
+    }
+
+    @POST
+    public Response postUser(UserDto dto) {
+        return Response.ok(userService.postUser(dto)).build();
+    }
+
+    @GET
+    @Path("/listTpUsers")
+    public Response listTpUsers() {
+        return Response.ok(userService.listTpUsers()).build();
     }
 }

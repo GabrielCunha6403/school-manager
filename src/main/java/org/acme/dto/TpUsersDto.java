@@ -9,9 +9,11 @@ import org.acme.entities.TpUsers;
 @Setter
 @NoArgsConstructor
 public class TpUsersDto {
+    public Long cdTpUser;
     public String dsTpUser;
 
     public TpUsersDto(TpUsers tpUser) {
+        this.cdTpUser = tpUser.cdTpUser;
         this.dsTpUser = tpUser.dsTpUser;
     }
 }
