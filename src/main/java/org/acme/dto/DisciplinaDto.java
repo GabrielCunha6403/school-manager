@@ -1,7 +1,6 @@
 package org.acme.dto;
 
 import org.acme.entities.Disciplina;
-import org.acme.entities.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +11,7 @@ public class DisciplinaDto {
     private Long semestre;
     private Long nrCreditos;
     private List<UserDto> professores;
+    private Long cdCurso;
 
     public DisciplinaDto() {}
 
@@ -21,6 +21,7 @@ public class DisciplinaDto {
         this.semestre = disciplina.semestre;
         this.nrCreditos = disciplina.nrCreditos;
         this.professores = disciplina.professores.stream().map(UserDto::new).collect(Collectors.toList());
+        this.cdCurso = disciplina.curso.cdCurso;
     }
 
     public List<UserDto> getProfessores() {
@@ -61,5 +62,13 @@ public class DisciplinaDto {
 
     public void setNrCreditos(Long nrCreditos) {
         this.nrCreditos = nrCreditos;
+    }
+
+    public Long getCdCurso() {
+        return cdCurso;
+    }
+
+    public void setCdCurso(Long cdCurso) {
+        this.cdCurso = cdCurso;
     }
 }

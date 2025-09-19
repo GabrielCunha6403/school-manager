@@ -17,7 +17,7 @@ public class DisciplinaService {
     }
 
     public List<DisciplinaDto> listDisciplina(Long cdCurso) {
-        return Disciplina.<Disciplina>listAll().stream().map(DisciplinaDto::new)
+        return Disciplina.<Disciplina>find("cdCurso = ?1", cdCurso).stream().map(DisciplinaDto::new)
                 .collect(Collectors.toList());
     }
 

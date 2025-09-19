@@ -23,11 +23,16 @@ public class Disciplina extends PanacheEntityBase {
     public Long nrCreditos;
     @ManyToMany
     @JoinTable(
-            name = "disciplina_professor", // nome da tabela associativa
-            joinColumns = @JoinColumn(name = "disciplina_id"), // chave de disciplina
-            inverseJoinColumns = @JoinColumn(name = "professor_id") // chave de professor
+            name = "disciplina_professor",
+            joinColumns = @JoinColumn(name = "disciplina_id"),
+            inverseJoinColumns = @JoinColumn(name = "professor_id")
     )
     public List<User> professores;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CD_CURSO", nullable = false)
+    public Curso curso;
+    @Column(name = "CD_CURSO", insertable = false, updatable = false)
+    public Long cdCurso;
 
     public Disciplina() {}
 
@@ -39,5 +44,6 @@ public class Disciplina extends PanacheEntityBase {
         this.professores = dto.getProfessores().stream()
                 .map(user -> (User) User.findById(user.getCdUser()))
                 .collect(Collectors.toList());
+        this.curso = Curso.findById(dto.getCdCurso());
     }
 }
