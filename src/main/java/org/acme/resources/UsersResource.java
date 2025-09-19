@@ -1,10 +1,7 @@
 package org.acme.resources;
 
 import jakarta.inject.Inject;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 import org.acme.dto.UserDto;
 import org.acme.services.UserService;
@@ -37,5 +34,16 @@ public class UsersResource {
     @Path("/listTpUsers")
     public Response listTpUsers() {
         return Response.ok(userService.listTpUsers()).build();
+    }
+
+    @PUT
+    public Response editUser(UserDto dto) {
+        return Response.ok(userService.editUser(dto)).build();
+    }
+
+    @DELETE
+    public Response deleteUser(@QueryParam("cdUser") Long cdUser) {
+        userService.deleteUser(cdUser);
+        return Response.ok().build();
     }
 }

@@ -22,6 +22,12 @@ public class UserService {
         return new UserDto(User.findById(cdUser));
     }
 
+    public List<UserDto> listProfessores() {
+        return User.find("tpUser.cdTpUser = 3")
+                .stream().map(user -> new UserDto((User) user))
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public UserDto postUser(UserDto dto) {
         User user = new User(dto);
@@ -32,5 +38,22 @@ public class UserService {
     public List<TpUsersDto> listTpUsers() {
         return TpUsers.listAll().stream().map(tp -> new TpUsersDto((TpUsers) tp))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public UserDto editUser(UserDto dto) {
+        User user = User.findById(dto.getCdUser());
+        user.tpUser = dto.getTpUser();
+        user.nmUser = dto.getNmUser();
+        user.cpf = dto.getCpf();
+
+        user.persist();
+
+        return dto;
+    }
+    
+    @Transactional
+    public void deleteUser(Long cdUser) {
+        User.deleteById(cdUser);
     }
 }

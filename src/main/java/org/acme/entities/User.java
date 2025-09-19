@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import org.acme.dto.UserDto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Table(name = "USERS")
@@ -20,12 +23,14 @@ public class User extends PanacheEntityBase {
     public TpUsers tpUser;
     @Column(name = "cpf")
     public String cpf;
+    @ManyToMany(mappedBy = "professores")
+    public List<Disciplina> disciplinas = new ArrayList<>();
 
     public User() {}
 
     public User(UserDto dto) {
-        this.nmUser = dto.nmUser;
-        this.tpUser = dto.tpUser;
-        this.cpf = dto.cpf;
+        this.nmUser = dto.getNmUser();
+        this.tpUser = dto.getTpUser();
+        this.cpf = dto.getCpf();
     }
 }
