@@ -17,7 +17,16 @@ public class DisciplinaService {
     }
 
     public List<DisciplinaDto> listDisciplina(Long cdCurso) {
-        return Disciplina.<Disciplina>find("cdCurso = ?1", cdCurso).stream().map(DisciplinaDto::new)
+        return Disciplina.<Disciplina>find("curso.cdCurso = ?1", cdCurso)
+                .list()
+                .stream().map(DisciplinaDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<DisciplinaDto> listarDisciplinasBySemestre(Long cdCurso, Long semestre) {
+        return Disciplina.<Disciplina>find("curso.cdCurso = ?1 AND semestre = ?2", cdCurso, semestre)
+                .list()
+                .stream().map(DisciplinaDto::new)
                 .collect(Collectors.toList());
     }
 

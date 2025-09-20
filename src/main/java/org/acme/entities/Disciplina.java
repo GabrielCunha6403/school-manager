@@ -31,8 +31,6 @@ public class Disciplina extends PanacheEntityBase {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CD_CURSO", nullable = false)
     public Curso curso;
-    @Column(name = "CD_CURSO", insertable = false, updatable = false)
-    public Long cdCurso;
 
     public Disciplina() {}
 

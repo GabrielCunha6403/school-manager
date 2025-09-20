@@ -34,6 +34,12 @@ public class DisciplinaResource {
         return Response.ok(disciplinaService.listDisciplina(cdCurso)).build();
     }
 
+    @GET
+    @Path("listarDisciplinasBySemestre")
+    public Response listarDisciplinasBySemestre(@QueryParam("cdCurso") Long cdCurso, @QueryParam("semestre") Long semestre) {
+        return Response.ok(disciplinaService.listarDisciplinasBySemestre(cdCurso, semestre)).build();
+    }
+
     @POST
     public Response postDisciplina(DisciplinaDto dto) {
         return Response.ok(disciplinaService.postDisciplina(dto)).build();
