@@ -1,5 +1,6 @@
 package org.acme.resources;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
@@ -15,6 +16,7 @@ public class UsersResource {
     private UserService userService;
 
     @GET
+    @RolesAllowed("manager")
     public Response listUsers() {
         return Response.ok(userService.listUsers()).build();
     }

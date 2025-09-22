@@ -1,0 +1,30 @@
+[
+  {
+    "id": "master",
+    "realm": "master",
+    "enabled": true,
+    "sslRequired": "NONE",
+    "registrationAllowed": false,
+    "loginWithEmailAllowed": true,
+    "duplicateEmailsAllowed": false,
+    "resetPasswordAllowed": true,
+    "editUsernameAllowed": true,
+    "bruteForceProtected": false,
+    "users": [
+      {
+        "username": "admin",
+        "enabled": true,
+        "emailVerified": true,
+        "firstName": "Admin",
+        "lastName": "User",
+        "credentials": [
+          {
+            "type": "password",
+            "value": "admin",
+            "temporary": false
+          }
+        ]
+      }
+    ]
+  }
+]
