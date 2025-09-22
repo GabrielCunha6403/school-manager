@@ -47,6 +47,10 @@ services:
       KC_HOSTNAME_STRICT_HTTPS: false
       KC_HTTP_ENABLED: true
 
+      KC_EXPORT_REALM: school-manager-realm
+      KC_EXPORT_USERS: "true"
+      KC_IMPORT: /opt/keycloak/data/export/school-manager-realm.json
+
     command:
       - start-dev
     ports:
@@ -56,10 +60,13 @@ services:
         condition: service_healthy
     networks:
       - keycloak-network
+    volumes:
+      - ./keycloak-export:/opt/keycloak/data/export
 
 volumes:
   schoolmanager:
   keycloak-db:
+  keycloak-export:
 
 networks:
   keycloak-network:
