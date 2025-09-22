@@ -1,5 +1,6 @@
 package org.acme.resources;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
@@ -9,6 +10,7 @@ import org.acme.services.DisciplinaService;
 import org.acme.services.UserService;
 
 @Path("/disciplinas")
+@RolesAllowed({"coordenador"})
 public class DisciplinaResource {
 
     @Inject

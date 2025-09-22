@@ -1,5 +1,6 @@
 package org.acme.resources;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PUT;
@@ -18,11 +19,13 @@ public class SemestreResource {
     private SemestreService semestreService;
 
     @GET
+    @RolesAllowed({"coordenador", "professor", "aluno"})
     public Response listSemestres(@QueryParam("cdCurso") Long cdCurso) {
         return Response.ok(semestreService.listarPorCurso(cdCurso)).build();
     }
 
     @PUT
+    @RolesAllowed({"coordenador"})
     public Response updateMatrizCurricular(@QueryParam("cdCurso") Long cdCurso, List<SemestrePutDto> list) {
         return Response.ok(semestreService.updateMatrizCurricular(list, cdCurso)).build();
     }

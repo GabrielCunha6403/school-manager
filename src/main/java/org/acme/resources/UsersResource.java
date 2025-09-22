@@ -7,16 +7,14 @@ import jakarta.ws.rs.core.Response;
 import org.acme.dto.UserDto;
 import org.acme.services.UserService;
 
-import java.util.List;
-
 @Path("/users")
+@RolesAllowed({"administrador"})
 public class UsersResource {
 
     @Inject
     private UserService userService;
 
     @GET
-    @RolesAllowed("manager")
     public Response listUsers() {
         return Response.ok(userService.listUsers()).build();
     }
