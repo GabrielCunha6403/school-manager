@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
 @Table(name = "USERS")
 public class User extends PanacheEntityBase {
     @Id

@@ -47,12 +47,14 @@ services:
       KC_HOSTNAME_STRICT_HTTPS: false
       KC_HTTP_ENABLED: true
 
-      KC_EXPORT_REALM: school-manager-realm
-      KC_EXPORT_USERS: "true"
-      KC_IMPORT: /opt/keycloak/data/export/school-manager-realm.json
+      # Variáveis de exportação removidas
+      # KC_EXPORT_REALM: school-manager-realm
+      # KC_EXPORT_USERS: "true"
+      # KC_IMPORT: /opt/keycloak/data/export/school-manager-realm-realm.json
 
     command:
       - start-dev
+      - --import-realm
     ports:
       - "8080:8080"
     depends_on:
@@ -61,7 +63,10 @@ services:
     networks:
       - keycloak-network
     volumes:
-      - ./keycloak-export:/opt/keycloak/data/export
+      # O volume agora aponta para o diretório de IMPORTAÇÃO
+      - ./keycloak-export:/opt/keycloak/data/import
+      # Certifique-se de que o arquivo local `school-manager-realm-realm.json` esteja em
+      # um subdiretório chamado `keycloak-export`
 
 volumes:
   schoolmanager:
