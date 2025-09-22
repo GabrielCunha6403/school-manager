@@ -18,4 +18,9 @@ public class TpUsers extends PanacheEntityBase {
     public Long cdTpUser;
     @Column(name = "ds_tp_user")
     public String dsTpUser;
+
+    public TpUsers(Long cdTpUser, String dsTpUser) {
+        this.cdTpUser = cdTpUser;
+        this.dsTpUser = dsTpUser;
+    }
 }
