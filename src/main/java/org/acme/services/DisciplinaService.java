@@ -39,13 +39,13 @@ public class DisciplinaService {
     
     @Transactional
     public DisciplinaDto editDisciplina(DisciplinaDto dto) {
-        Disciplina disciplina = Disciplina.findById(dto.getCdDisciplina());
-        disciplina.nmDisciplina = dto.getNmDisciplina();
-        disciplina.nrCreditos = dto.getNrCreditos();
-        disciplina.semestre = dto.getSemestre();
-        disciplina.professores = dto.getProfessores().stream()
-                .map(userDto -> (User) User.findById(userDto.getCdUser()))
-                .collect(Collectors.toList());
+        Disciplina disciplina = Disciplina.findById(dto.cdDisciplina());
+        disciplina.nmDisciplina = dto.nmDisciplina();
+        disciplina.nrCreditos = dto.nrCreditos();
+        disciplina.semestre = dto.semestre();
+        disciplina.professores = dto.professores() != null ? dto.professores().stream()
+                .map(userDto -> (User) User.findById(userDto.cdUser()))
+                .toList() : null;
 
         disciplina.persist();
 

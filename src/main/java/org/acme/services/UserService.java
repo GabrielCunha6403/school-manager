@@ -15,7 +15,7 @@ public class UserService {
 
     public List<UserDto> listUsers() {
         return User.listAll().stream().map(user -> new UserDto((User) user))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public UserDto getUser(Long cdUser) {
@@ -25,7 +25,7 @@ public class UserService {
     public List<UserDto> listProfessores() {
         return User.find("tpUser.cdTpUser = 3")
                 .stream().map(user -> new UserDto((User) user))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Transactional
@@ -37,15 +37,15 @@ public class UserService {
 
     public List<TpUsersDto> listTpUsers() {
         return TpUsers.listAll().stream().map(tp -> new TpUsersDto((TpUsers) tp))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Transactional
     public UserDto editUser(UserDto dto) {
-        User user = User.findById(dto.getCdUser());
-        user.tpUser = dto.getTpUser();
-        user.nmUser = dto.getNmUser();
-        user.cpf = dto.getCpf();
+        User user = User.findById(dto.cdUser());
+        user.tpUser = dto.tpUser();
+        user.nmUser = dto.nmUser();
+        user.cpf = dto.cpf();
 
         user.persist();
 

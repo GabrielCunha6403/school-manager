@@ -10,21 +10,24 @@ import java.util.List;
 
 @Entity
 @Table(name = "SEMESTRES")
-public class Semestre {
+public class Semestre extends PanacheEntityBase {
 
     @EmbeddedId
     private SemestreId id;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CD_CURSO", nullable = false)
+    @JoinColumn(name = "CD_CURSO", nullable = false, insertable = false, updatable = false)
     public Curso curso;
-    @Column(name = "SEMESTRE")
+
+    @Column(name = "SEMESTRE", insertable = false, updatable = false)
     public Long semestre;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CD_DISCIPLINA", nullable = false)
+    @JoinColumn(name = "CD_DISCIPLINA", nullable = false, insertable = false, updatable = false)
     public Disciplina disciplina;
 
     public Semestre(Curso curso, Long semestre, Disciplina disciplina) {
-        this.id = new SemestreId(curso, semestre, disciplina);
+        this.id = new SemestreId(curso.cdCurso, semestre, disciplina.cdDisciplina);
         this.curso = curso;
         this.semestre = semestre;
         this.disciplina = disciplina;
@@ -33,21 +36,19 @@ public class Semestre {
     public Semestre() {}
 
     public Semestre(SemestreDto dto) {
-        this.curso = Curso.findById(dto.getCurso().getCdCurso());
-        this.semestre = dto.getSemestre();
-        this.disciplina = Disciplina.findById(dto.getDisciplina().getCdDisciplina());
+        this.curso = Curso.findById(dto.curso().cdCurso());
+        this.semestre = dto.semestre();
+        this.disciplina = Disciplina.findById(dto.disciplina().cdDisciplina());
     }
 
-
-
     public static List<Semestre> extractEntitiesFromDto(SemestrePutDto dto) {
-        return dto.getDisciplinas()
-            .stream().map(disciplina -> {
-                return new Semestre(
-                    Curso.findById(disciplina.getCdCurso()),
-                    disciplina.getSemestre(),
-                    Disciplina.findById(disciplina.getCdDisciplina())
-                );
-            }).toList();
+        return dto.disciplinas()
+            .stream().map(disciplina ->
+                new Semestre(
+                    Curso.findById(disciplina.cdCurso()),
+                    disciplina.semestre(),
+                    Disciplina.findById(disciplina.cdDisciplina())
+                )
+            ).toList();
     }
 }

@@ -16,7 +16,7 @@ public class CursoService {
     public List<CursoDto> listCursos() {
         return Curso.<Curso>listAll()
                 .stream().map(CursoDto::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public CursoDto getCurso(Long cdCurso) {
@@ -25,12 +25,15 @@ public class CursoService {
 
     public List<UserDto> listProfessoresFromCurso(Long cdCurso) {
         return User.<User>find(
-                "SELECT DISTINCT p FROM Disciplina d " +
-                        "JOIN d.professores p " +
-                        "WHERE d.curso.cdCurso = ?1",
+                        """
+                                SELECT DISTINCT p FROM Disciplina d
+                                JOIN d.professores p
+                                WHERE d.curso.cdCurso = ?1
+                                """
+                ,
                 cdCurso)
                 .stream().map(UserDto::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<UserDto> listCoordenadores() {
@@ -47,10 +50,10 @@ public class CursoService {
 
     @Transactional
     public CursoDto editCurso(CursoDto dto) {
-        Curso curso = Curso.findById(dto.getCdCurso());
-        curso.nmCurso = dto.getNmCurso();
-        curso.coordenador = dto.getCoordenador();
-        curso.nrCargaHoraria = dto.getNrCargaHoraria();
+        Curso curso = Curso.findById(dto.cdCurso());
+        curso.nmCurso = dto.nmCurso();
+        curso.coordenador = dto.coordenador();
+        curso.nrCargaHoraria = dto.nrCargaHoraria();
 
         curso.persist();
 

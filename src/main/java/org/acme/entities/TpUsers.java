@@ -5,10 +5,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.NoArgsConstructor;
+import org.acme.dto.TpUsersDto;
 
 @Entity
-@NoArgsConstructor
 @Table(
         name = "TP_USERS"
 )
@@ -19,8 +18,15 @@ public class TpUsers extends PanacheEntityBase {
     @Column(name = "ds_tp_user")
     public String dsTpUser;
 
+    public TpUsers() {}
+
     public TpUsers(Long cdTpUser, String dsTpUser) {
         this.cdTpUser = cdTpUser;
         this.dsTpUser = dsTpUser;
+    }
+
+    public TpUsers(TpUsersDto dto) {
+        this.cdTpUser = dto.cdTpUser();
+        this.dsTpUser = dto.dsTpUser();
     }
 }

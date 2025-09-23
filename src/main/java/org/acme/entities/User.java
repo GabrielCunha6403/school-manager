@@ -2,7 +2,6 @@ package org.acme.entities;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
-import lombok.NoArgsConstructor;
 import org.acme.dto.UserDto;
 
 import java.util.ArrayList;
@@ -28,8 +27,9 @@ public class User extends PanacheEntityBase {
     public User() {}
 
     public User(UserDto dto) {
-        this.nmUser = dto.getNmUser();
-        this.tpUser = dto.getTpUser();
-        this.cpf = dto.getCpf();
+        this.cdUser = dto.cdUser();
+        this.nmUser = dto.nmUser();
+        this.tpUser = dto.tpUser();
+        this.cpf = dto.cpf();
     }
 }

@@ -35,13 +35,13 @@ public class Disciplina extends PanacheEntityBase {
     public Disciplina() {}
 
     public Disciplina(DisciplinaDto dto) {
-        this.cdDisciplina = dto.getCdDisciplina();
-        this.nmDisciplina = dto.getNmDisciplina();
-        this.semestre = dto.getSemestre();
-        this.nrCreditos = dto.getNrCreditos();
-        this.professores = dto.getProfessores().stream()
-                .map(user -> (User) User.findById(user.getCdUser()))
-                .collect(Collectors.toList());
-        this.curso = Curso.findById(dto.getCdCurso());
+        this.cdDisciplina = dto.cdDisciplina();
+        this.nmDisciplina = dto.nmDisciplina();
+        this.semestre = dto.semestre();
+        this.nrCreditos = dto.nrCreditos();
+        this.professores = dto.professores() != null ? dto.professores().stream()
+                .map(user -> (User) User.findById(user.cdUser()))
+                .toList() : null;
+        this.curso = Curso.findById(dto.cdCurso());
     }
 }
