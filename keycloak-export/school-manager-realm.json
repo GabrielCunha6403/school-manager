@@ -582,6 +582,58 @@
       ],
       "notBefore": 0,
       "groups": []
+    },
+    {
+      "id": "user-admin-001",
+      "username": "administrador",
+      "enabled": true,
+      "emailVerified": false,
+      "credentials": [
+        { "type": "password", "value": "administrador", "temporary": false }
+      ],
+      "clientRoles": {
+        "frontend-service": ["administrador"],
+        "backend-service": ["administrador"]
+      }
+    },
+    {
+      "id": "user-coord-001",
+      "username": "coordenador",
+      "enabled": true,
+      "emailVerified": false,
+      "credentials": [
+        { "type": "password", "value": "coordenador", "temporary": false }
+      ],
+      "clientRoles": {
+        "frontend-service": ["coordenador"],
+        "backend-service": ["coordenador"]
+      }
+    },
+    {
+      "id": "user-prof-001",
+      "username": "professor",
+      "enabled": true,
+      "emailVerified": false,
+      "credentials": [
+        { "type": "password", "value": "professor", "temporary": false }
+      ],
+      "clientRoles": {
+        "frontend-service": ["professor"],
+        "backend-service": ["professor"]
+      }
+    },
+    {
+      "id": "user-aluno-001",
+      "username": "aluno",
+      "enabled": true,
+      "emailVerified": false,
+      "credentials": [
+        { "type": "password", "value": "aluno", "temporary": false }
+      ],
+      "clientRoles": {
+        "frontend-service": ["aluno"],
+        "backend-service": ["aluno"]
+      }
     }
   ],
   "scopeMappings": [
@@ -2438,3 +2490,4 @@
     "policies": []
   }
 }
+
